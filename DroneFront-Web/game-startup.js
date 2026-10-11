@@ -1,6 +1,9 @@
 (function(){
  const by=id=>document.getElementById(id);
  const mobile=/Android|iPhone|iPad/i.test(navigator.userAgent);
+ if(window.DroneAndroid&&typeof window.DroneAndroid.editText==='function'){
+  for(const id of ['pilot-name','room-code']){const input=by(id);if(input){input.readOnly=true;input.setAttribute('aria-description','اضغط لفتح لوحة مفاتيح الهاتف');input.onclick=()=>{input.blur();window.DroneAndroid.editText(id,input.value);};}}
+ }
  window.droneRenderScale=()=>{const quality=localStorage.getItem('drone-quality')||(mobile?'medium':'high');const cap=quality==='low'?1280:quality==='medium'?1920:2560;return Math.min(quality==='low'?1:quality==='medium'?1.5:2,cap/window.innerWidth);};
  const notice=document.createElement('div');notice.id='load-notice';notice.setAttribute('role','status');notice.style.cssText='position:fixed;top:8px;left:8px;right:8px;z-index:65;padding:10px;background:#082433f5;color:#eafffa;border:1px solid #57c5b4;border-radius:9px;text-align:center;direction:rtl;font:13px Arial';
  const text=document.createElement('span');text.textContent='جارٍ تحميل اللعبة • أزرار اللعب ستعمل بعد تجهيز العالم';notice.append(text);document.body.append(notice);
