@@ -1,7 +1,10 @@
 # Drone Front online preview
 
-Unity WebGL drone game and Node.js WebSocket room server. Render configuration is in render.yaml and uses the Free plan in Frankfurt. Docker serves the game, Android APK download and /rooms from the same HTTPS origin. Health endpoint: /health.
+Play: https://drone-front-online.onrender.com/
+Android 0.1.1 (Android 9+): https://drone-front-online.onrender.com/downloads/DroneFront-Preview.apk
 
-The Android preview includes the local WebGL game, so it is not a native Unity Android build. Set the deployed HTTPS URL in the APK online-server setting. Free hosting may sleep; current connection UI waits up to 90 seconds for startup.
+Create an online room, share its code, and have friends join the same server. The Android preview bundles local Unity WebGL in a WebView and connects to this Render server by default. It is not a native Unity Android build. Free hosting may sleep; the connection UI waits up to 90 seconds for startup.
 
-Prototype: 8 players per room, browser/app local virtual economy, ephemeral rooms and server ray hits without terrain collision. This is a development game without account security or cheat-resistant progression.
+Render Free Docker in Frankfurt serves the game, APK and /rooms. Health: /health. Public source is a dedicated runtime mirror with no signing key.
+
+Prototype: 8 players per room, local virtual economy, ephemeral rooms, and ray hits without terrain collision. Not cheat-resistant. Android device performance has not yet been tested.
