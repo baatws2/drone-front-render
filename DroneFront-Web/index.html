@@ -15,7 +15,7 @@ html,body{width:100%;height:100%;overflow:hidden}#unity-container.unity-desktop{
   <body><section id="entry-screen" aria-label="اختيار الدرون ونوع اللعب"><div class="entry-panel"><div class="entry-heading"><small>DRONE FRONT</small><h1 id="entry-title">اختر درونك وانطلق</h1><p id="entry-description">طيران حر أو غرفة أونلاين مع الأصدقاء • كل إسقاط يمنحك 100 عملة</p></div><div class="entry-wallet">رصيدك: <strong id="entry-credits">0</strong> عملة</div><label class="name-field">اسم اللاعب<input id="pilot-name" maxlength="20" placeholder="اكتب اسمك" autocomplete="off"></label><div id="drone-cards" class="drone-cards"></div><div class="upgrade-row"><button id="upgrade-drone" disabled>تطوير الدرون • 150 عملة</button><span id="upgrade-info">كل تطوير يزيد الصحة والقوة والسرعة</span></div><div id="mode-options"><button id="free-play" disabled>لعب حر</button><div class="online-options"><h2>أونلاين مع الأصدقاء</h2><p>أنشئ غرفة وشارك رمزها، أو أدخل رمز غرفة صديقك.</p><div class="room-inputs"><input id="room-code" aria-label="رمز الغرفة" maxlength="6" placeholder="رمز الغرفة"><button id="join-room" disabled>دخول الغرفة</button><button id="create-room" disabled>إنشاء غرفة</button></div><small>الأونلاين التجريبي: حتى 8 لاعبين. العملات محفوظة في هذا المتصفح.</small></div></div><button id="resume-garage" hidden>الخروج من الكراج</button><p id="entry-status" role="status">جارٍ تجهيز العالم…</p></div></section>
 <aside id="wallet-hud" hidden><div><span id="player-label"></span> <b id="credits-label"></b></div><div class="health-row"><progress id="health-meter" max="100" value="100" aria-label="صحة الدرون"></progress><span id="health-label"></span></div></aside><div id="network-hud" hidden><span id="room-label"></span><button id="copy-invite">نسخ دعوة</button></div><div id="combat-flash"></div><div id="hit-marker" hidden>×</div><div id="game-toast" role="status" hidden></div><div id="death-screen" hidden><h2>دُمّر الدرون</h2><p>العودة لأقرب كراج خلال <b id="respawn-count">4</b> ثوانٍ</p></div>
 <nav id="controls" aria-label="التحكم باللعبة"><button id="audio-start" disabled>بدء اللعب والصوت</button><select id="zone-picker" aria-label="المناطق" disabled><option value="">اختر منطقة</option><option value="GoCity">المدينة الساحلية</option><option value="GoCoast">البحر والميناء</option><option value="GoMountains">الطبيعة</option><option value="GoOasis">الواحة</option><option value="GoWind">مزرعة الرياح</option><option value="GoDesert">مدينة الصحراء</option><option value="GoDunes">الكثبان</option><option value="GoSnow">مدينة الثلج</option></select><button id="sea-challenge" disabled>تحدّي البحر</button><button id="cancel-challenge" hidden disabled>إلغاء التحدّي</button><button data-zone="ToggleCombat" disabled>تدريب / قتال</button><span id="audio-status">جارٍ تحميل اللعبة…</span><span id="mission-status" aria-live="polite">استكشاف حر • جرّب تحدّي البحر</span></nav><aside id="radar" aria-label="رادار الدرون والقوارب"><canvas id="radar-canvas" width="112" height="92" aria-label="موقع الدرون والهدف والقوارب"></canvas><small>▲ الدرون • القوارب • ◇ الهدف</small></aside>
-    <div id="unity-container" class="unity-desktop">
+    <script src="game-startup.js"></script><div id="unity-container" class="unity-desktop">
       <div id="unity-fullscreen-container">
         <canvas id="unity-canvas" width="2560" height="1440" tabindex="-1"></canvas>
         <div id="unity-loading-container">
@@ -133,7 +133,8 @@ html,body{width:100%;height:100%;overflow:hidden}#unity-container.unity-desktop{
         const loadingContainer = document.querySelector("#unity-loading-container");
         const progressBarFull = document.querySelector("#unity-progress-bar-full");
 
-        config.matchWebGLToCanvasSize=true;config.devicePixelRatio=Math.min(2,2560/window.innerWidth);createUnityInstance(canvas, config, (progress) => {
+        config.matchWebGLToCanvasSize=true;config.devicePixelRatio=window.droneRenderScale();createUnityInstance(canvas, config, (progress) => {
+          window.droneLoadProgress(progress);
           if (progress < 1) {
             loadingContainer.style.display = "block";
             progressBarFull.style.width = 100 * progress + "%";
@@ -200,7 +201,7 @@ const releaseAll=()=>{document.querySelectorAll('[data-hold]').forEach(b=>b.clas
                   });
                 };
               }).catch((message) => {
-                alert(message);
+                window.droneLoadError(message);
               });
             };
 
