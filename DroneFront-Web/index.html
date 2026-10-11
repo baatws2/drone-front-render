@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity Web Player | Drone Front</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  <script src="TemplateData/profiler.js"></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1"><style>
+body{margin:0;background:#0d1720;color:#e5eff4;font-family:Arial,sans-serif}#unity-container.unity-desktop{position:relative;left:0;top:0;transform:none;width:100%}#unity-fullscreen-container{width:100%!important;height:calc(100vh - 285px)!important;min-height:210px;display:flex;align-items:center;justify-content:center}#unity-canvas{width:100%!important;height:auto!important;aspect-ratio:16/9;max-height:calc(100vh - 285px);object-fit:contain}#unity-footer{color:#e2ebed;padding:0 10px;height:40px}#controls{height:82px;box-sizing:border-box;padding:6px;text-align:center;direction:rtl;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:5px}button{background:#243744;color:white;border:1px solid #4d6b7a;padding:8px 9px;border-radius:6px;cursor:pointer;font-size:12px;touch-action:none;user-select:none}button:disabled{opacity:.5}button.active{background:#19a091;color:#fff;box-shadow:0 0 12px #138577}#audio-start{background:#168080}#audio-status{font-size:11px;width:100%;color:#a7c4cf}#unity-build-title>button{display:none}#pilot{padding:6px;direction:rtl;display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#101f2a}#pilot h3{font-size:11px;color:#91b5c7;margin:0 0 4px;font-weight:normal}.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.actions{grid-column:1/-1;display:flex;gap:4px;justify-content:center;flex-wrap:wrap}.actions button{padding:6px 8px}#pilot button[data-hold]{min-height:33px}#pilot small{grid-column:1/-1;text-align:center;color:#a7c4cf;font-size:10px}
+.stick-group{text-align:center}.joystick{width:116px;height:116px;position:relative;margin:5px auto;background:radial-gradient(circle,#233f50 0 25%,#172d3b 26% 53%,#0d202e 54%);border:2px solid #537c8d;border-radius:50%;touch-action:none;user-select:none;direction:ltr;outline:none}.joystick:focus{border-color:#30c3b5}.joystick:before,.joystick:after{content:'';position:absolute;background:#5b7b8c55}.joystick:before{width:1px;height:100%;left:50%}.joystick:after{width:100%;height:1px;top:50%}.joystick .knob{position:absolute;left:36px;top:36px;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#82d0d4,#21798a 65%,#155369);border:1px solid #98d8da;box-shadow:0 5px 12px #0009;z-index:2;pointer-events:none}.joystick span{position:absolute;font-size:9px;color:#b5d2dd;pointer-events:none}.joystick .top{top:4px;left:0;width:100%}.joystick .bottom{bottom:4px;left:0;width:100%}.joystick .left{left:3px;top:50%}.joystick .right{right:3px;top:50%}.stick-value{font-size:10px;color:#8db7c5}.joystick.active{border-color:#39dcc3;box-shadow:0 0 14px #159f8e66}#unity-fullscreen-container{height:calc(100vh - 325px)!important}#unity-canvas{max-height:calc(100vh - 325px)}#pilot{padding-top:4px}#controls{height:68px}#unity-fullscreen-container{height:min(calc(100vw * .5625),calc(100vh - 300px))!important;min-height:0}#unity-canvas{width:min(100%,calc((100vh - 300px)*1.7778))!important;max-height:calc(100vh - 300px)}.joystick{width:106px;height:106px}.joystick .knob{left:31px;top:31px}.actions button{padding:5px 7px} </style><style>
+html,body{width:100%;height:100%;overflow:hidden}#unity-container.unity-desktop{position:fixed;inset:0;height:100vh}#unity-fullscreen-container{position:absolute;inset:0;width:100%!important;height:100vh!important;min-height:0}#unity-canvas{width:100%!important;height:100vh!important;max-height:none!important;aspect-ratio:auto;object-fit:fill}#unity-footer{display:none}#controls{position:fixed;top:8px;left:12px;right:12px;height:auto;z-index:5;background:transparent;pointer-events:none;justify-content:flex-end;padding-left:35%}#controls button{pointer-events:auto}#audio-status{color:white;text-shadow:0 1px 4px #000;text-align:right}button,#audio-start{background:rgba(12,30,40,.28);border-color:rgba(210,239,248,.55);text-shadow:0 1px 3px #000;box-shadow:0 2px 8px #0002}button:hover{background:rgba(30,111,119,.5)}#pilot{position:fixed;bottom:10px;left:18px;right:18px;z-index:5;background:transparent;pointer-events:none;grid-template-columns:1fr 1fr;gap:4px}#pilot .stick-group:first-child{justify-self:start}#pilot .stick-group:nth-child(2){justify-self:end}#pilot .joystick,#pilot button{pointer-events:auto}#pilot h3,#pilot small,.stick-value{color:white;text-shadow:0 1px 4px #000}.joystick{background:radial-gradient(circle,rgba(70,120,137,.13),rgba(5,24,37,.22));border-color:#b9e3ee88}.joystick .knob{background:radial-gradient(circle at 30% 25%,#b9eceeaa,#367b8899 70%,#14465488);box-shadow:0 3px 8px #0004}.joystick span{color:white;text-shadow:0 1px 3px #000}.actions{margin-top:4px}@media(max-width:700px){#controls{padding-left:0;justify-content:center;top:95px;left:3px;right:3px}button{font-size:10px;padding:6px}#pilot{left:8px;right:8px;bottom:5px}#pilot h3{font-size:10px}#pilot small{display:none}}@media(max-height:480px){#pilot{grid-template-columns:1fr 1fr}#pilot .actions{position:absolute;bottom:4px;left:140px;right:140px}#pilot small,.stick-value{display:none}#pilot h3{font-size:9px}}
+</style><style>#zone-picker{max-width:125px;background:rgba(12,30,40,.38);color:white;border:1px solid #c3e0e688;border-radius:6px;padding:6px;pointer-events:auto;font:12px Arial}#zone-picker option{background:#173542;color:white}#mission-status{width:100%;box-sizing:border-box;padding:4px 6px;background:rgba(9,27,35,.3);border-radius:5px;font-size:11px;color:#bcf7e5;text-shadow:0 1px 4px #000;text-align:right}#radar{position:fixed;right:10px;top:6px;width:112px;z-index:4;text-align:center;pointer-events:none;border:1px solid #c9e6e533;border-radius:7px;background:#112e3c22}#radar canvas{display:block}#radar small{font:8px Arial;color:#ebffff;text-shadow:0 1px 3px #000}button[hidden]{display:none!important}@media(max-width:700px){#controls{top:111px}#zone-picker{font-size:10px;max-width:105px}#audio-status{font-size:9px}#mission-status{text-align:center;font-size:10px}#radar{right:5px;top:4px}}</style><link rel="stylesheet" href="game-ui.css"><script src="game-ui.js"></script></head>
+  <body><section id="entry-screen" aria-label="اختيار الدرون ونوع اللعب"><div class="entry-panel"><div class="entry-heading"><small>DRONE FRONT</small><h1 id="entry-title">اختر درونك وانطلق</h1><p id="entry-description">طيران حر أو غرفة أونلاين مع الأصدقاء • كل إسقاط يمنحك 100 عملة</p></div><div class="entry-wallet">رصيدك: <strong id="entry-credits">0</strong> عملة</div><label class="name-field">اسم اللاعب<input id="pilot-name" maxlength="20" placeholder="اكتب اسمك" autocomplete="off"></label><div id="drone-cards" class="drone-cards"></div><div class="upgrade-row"><button id="upgrade-drone" disabled>تطوير الدرون • 150 عملة</button><span id="upgrade-info">كل تطوير يزيد الصحة والقوة والسرعة</span></div><div id="mode-options"><button id="free-play" disabled>لعب حر</button><div class="online-options"><h2>أونلاين مع الأصدقاء</h2><p>أنشئ غرفة وشارك رمزها، أو أدخل رمز غرفة صديقك.</p><div class="room-inputs"><input id="room-code" aria-label="رمز الغرفة" maxlength="6" placeholder="رمز الغرفة"><button id="join-room" disabled>دخول الغرفة</button><button id="create-room" disabled>إنشاء غرفة</button></div><small>الأونلاين التجريبي: حتى 8 لاعبين. العملات محفوظة في هذا المتصفح.</small></div></div><button id="resume-garage" hidden>الخروج من الكراج</button><p id="entry-status" role="status">جارٍ تجهيز العالم…</p></div></section>
+<aside id="wallet-hud" hidden><div><span id="player-label"></span> <b id="credits-label"></b></div><div class="health-row"><progress id="health-meter" max="100" value="100" aria-label="صحة الدرون"></progress><span id="health-label"></span></div></aside><div id="network-hud" hidden><span id="room-label"></span><button id="copy-invite">نسخ دعوة</button></div><div id="combat-flash"></div><div id="hit-marker" hidden>×</div><div id="game-toast" role="status" hidden></div><div id="death-screen" hidden><h2>دُمّر الدرون</h2><p>العودة لأقرب كراج خلال <b id="respawn-count">4</b> ثوانٍ</p></div>
+<nav id="controls" aria-label="التحكم باللعبة"><button id="audio-start" disabled>بدء اللعب والصوت</button><select id="zone-picker" aria-label="المناطق" disabled><option value="">اختر منطقة</option><option value="GoCity">المدينة الساحلية</option><option value="GoCoast">البحر والميناء</option><option value="GoMountains">الطبيعة</option><option value="GoOasis">الواحة</option><option value="GoWind">مزرعة الرياح</option><option value="GoDesert">مدينة الصحراء</option><option value="GoDunes">الكثبان</option><option value="GoSnow">مدينة الثلج</option></select><button id="sea-challenge" disabled>تحدّي البحر</button><button id="cancel-challenge" hidden disabled>إلغاء التحدّي</button><button data-zone="ToggleCombat" disabled>تدريب / قتال</button><span id="audio-status">جارٍ تحميل اللعبة…</span><span id="mission-status" aria-live="polite">استكشاف حر • جرّب تحدّي البحر</span></nav><aside id="radar" aria-label="رادار الدرون والقوارب"><canvas id="radar-canvas" width="112" height="92" aria-label="موقع الدرون والهدف والقوارب"></canvas><small>▲ الدرون • القوارب • ◇ الهدف</small></aside>
+    <div id="unity-container" class="unity-desktop">
+      <div id="unity-fullscreen-container">
+        <canvas id="unity-canvas" width="2560" height="1440" tabindex="-1"></canvas>
+        <div id="unity-loading-container">
+          <div id="unity-loading-bar">
+            <div id="unity-logo"></div>
+            <div id="unity-progress-bar-empty">
+              <div id="unity-progress-bar-full"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="unity-warning"> </div>
+      <div id="unity-footer">
+        <div id="unity-logo-title-footer"></div>
+        <div id="unity-fullscreen-button"></div>
+        <div id="unity-build-title">Drone Front</div>
+      </div>
+    </div>
+    <script>
+      let canvas = document.querySelector("#unity-canvas");
+      let fullscreenContainer = document.querySelector("#unity-fullscreen-container");
+
+      // Shows a temporary message banner/ribbon for a few seconds, or
+      // a permanent error message on top of the canvas if type=='error'.
+      // If type=='warning', a yellow highlight color is used.
+      // Modify or remove this function to customize the visually presented
+      // way that non-critical warnings and error messages are presented to the
+      // user.
+      function unityShowBanner(msg, type) {
+        var warningBanner = document.querySelector("#unity-warning");
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/DroneFront-Web.loader.js";
+      var config = {
+        arguments: [],
+        dataUrl: buildUrl + "/DroneFront-Web.data",
+        frameworkUrl: buildUrl + "/DroneFront-Web.framework.js",
+        codeUrl: buildUrl + "/DroneFront-Web.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+
+        // If you have a custom web site structure, or want to place multiple Unity build instances on the same page,
+        // you can pass fullscreenElementID: "my-unity-fullscreen-container-id", in this configuration field to
+        // explicitly point to the element tree root that is displayed in fullscreen mode.
+        fullscreenElementID: "unity-fullscreen-container",
+
+        companyName: "Drone Front",
+        productName: "Drone Front",
+        productVersion: "1.0",
+        showBanner: unityShowBanner,
+        // errorHandler: function(err, url, line) {
+        //    alert("error " + err + " occurred at line " + line);
+        //    // Return 'true' if you handled this error and don't want Unity
+        //    // to process it further, 'false' otherwise.
+        //    return true;
+        // },
+      };
+
+      // By default, Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      // config.matchWebGLToCanvasSize = false;
+
+      // If you would like all file writes inside Unity Application.persistentDataPath
+      // directory to automatically persist so that the contents are remembered when
+      // the user revisits the site the next time, uncomment the following line:
+      // config.autoSyncPersistentDataPath = true;
+      // This autosyncing is currently not the default behavior to avoid regressing
+      // existing user projects that might rely on the earlier manual
+      // JS_FileSystem_Sync() behavior, but in future Unity version, this will be
+      // expected to change.
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        document.querySelector("#unity-container").className = "unity-mobile";
+        canvas.className = "unity-mobile";
+
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        // config.devicePixelRatio = 1;
+
+
+      } else {
+        // Desktop style: Render the game canvas container in a window that can be maximized to fullscreen:
+        fullscreenContainer.style.width = "960px";
+        fullscreenContainer.style.height = "600px";
+      }
+
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        const loadingContainer = document.querySelector("#unity-loading-container");
+        const progressBarFull = document.querySelector("#unity-progress-bar-full");
+
+        config.matchWebGLToCanvasSize=true;config.devicePixelRatio=Math.min(2,2560/window.innerWidth);createUnityInstance(canvas, config, (progress) => {
+          if (progress < 1) {
+            loadingContainer.style.display = "block";
+            progressBarFull.style.width = 100 * progress + "%";
+          } else {
+            loadingContainer.style.display = "none";
+          }
+        }).then((unityInstance) => { initializePilotUI(unityInstance);
+const ready=()=>{document.querySelectorAll('#controls button,#pilot button,#zone-picker').forEach(b=>b.disabled=false);document.querySelector('#audio-status').textContent='اسحب الجير للتحكم • اختر منطقة للاستكشاف';};if(window.droneWorldReady)ready();else window.addEventListener('drone-world-ready',ready,{once:true});
+let testContext;
+document.querySelector('#audio-start').onclick=async()=>{try{testContext ||= new (window.AudioContext||window.webkitAudioContext)();await testContext.resume();const tone=testContext.createOscillator(),gain=testContext.createGain();tone.frequency.value=440;gain.gain.setValueAtTime(.06,testContext.currentTime);gain.gain.exponentialRampToValueAtTime(.001,testContext.currentTime+.2);tone.connect(gain).connect(testContext.destination);tone.start();tone.stop(testContext.currentTime+.2);unityInstance.SendMessage('Drone Front','EnableSound');canvas.focus();document.querySelector('#audio-status').textContent='الصوت مفعّل • الجيرين للتحكم بالحركة والارتفاع';}catch(e){document.querySelector('#audio-status').textContent='تعذّر تفعيل الصوت: '+e.message;}};
+document.querySelectorAll('[data-stick]').forEach(stick=>{
+let activePointer=null;const knob=stick.querySelector('.knob'),readout=stick.parentElement.querySelector('output');
+const send=(x,y)=>{const length=Math.hypot(x,y);if(length>1){x/=length;y/=length;}if(Math.hypot(x,y)<.08){x=y=0;}knob.style.transform='translate('+x*37+'px,'+(-y*37)+'px)';readout.textContent=x.toFixed(2)+' / '+y.toFixed(2);unityInstance.SendMessage('Drone Front',stick.dataset.stick,x.toFixed(3)+','+y.toFixed(3));};
+const position=e=>{const rect=stick.getBoundingClientRect();send((e.clientX-rect.left-rect.width/2)/45,(rect.top+rect.height/2-e.clientY)/45);};
+stick.onpointerdown=e=>{if(!window.droneWorldReady)return;e.preventDefault();activePointer=e.pointerId;stick.setPointerCapture(e.pointerId);stick.classList.add('active');position(e);};stick.onpointermove=e=>{if(e.pointerId===activePointer)position(e);};
+const reset=()=>{activePointer=null;stick.classList.remove('active');send(0,0);};stick.onpointerup=reset;stick.onpointercancel=reset;stick.onlostpointercapture=reset;window.addEventListener('blur',reset);document.addEventListener('visibilitychange',()=>{if(document.hidden)reset();});
+stick.onkeydown=e=>{if(!window.droneWorldReady)return;if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();send(e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0,e.key==='ArrowUp'?1:e.key==='ArrowDown'?-1:0);}};stick.onkeyup=reset;
+});
+document.querySelector('#zone-picker').onchange=e=>{if(!e.target.value)return;unityInstance.SendMessage('Drone Front','CancelMission');unityInstance.SendMessage('Drone Front',e.target.value);e.target.value='';canvas.focus();};
+document.querySelector('#sea-challenge').onclick=()=>{unityInstance.SendMessage('Drone Front','StartSeaChallenge');canvas.focus();};document.querySelector('#cancel-challenge').onclick=()=>unityInstance.SendMessage('Drone Front','CancelMission');
+const radar=document.querySelector('#radar-canvas'),ctx=radar.getContext('2d');window.addEventListener('drone-hud',event=>{const state=event.detail;document.querySelector('#mission-status').textContent=state.status;document.querySelector('#cancel-challenge').hidden=!state.active;ctx.clearRect(0,0,112,92);ctx.fillStyle='rgba(12,55,70,.4)';ctx.fillRect(0,0,112,92);const scale=112/1400,toX=x=>56+(x-state.x)*scale,toY=z=>46-(z-state.z)*scale;ctx.fillStyle='rgba(91,133,82,.5)';ctx.beginPath();ctx.moveTo(0,0);for(let y=0;y<=92;y+=4){const z=state.z+(46-y)/scale;const shore=900+Math.sin(z*.001)*190;ctx.lineTo(Math.max(0,Math.min(112,toX(shore))),y);}ctx.lineTo(0,92);ctx.fill();ctx.strokeStyle='#c9e6e522';for(let x=0;x<112;x+=28){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,92);ctx.stroke();}for(let y=0;y<92;y+=23){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(112,y);ctx.stroke();}ctx.fillStyle='#d5e7f0';for(const b of state.boats){ctx.fillRect(toX(b.x)-1.5,toY(b.z)-1.5,3,3);}ctx.fillStyle=state.active?'#59edc1':'#ffd37a';const tx=Math.max(5,Math.min(107,toX(state.target.x))),ty=Math.max(5,Math.min(87,toY(state.target.z)));ctx.beginPath();ctx.moveTo(tx,ty-4);ctx.lineTo(tx+4,ty);ctx.lineTo(tx,ty+4);ctx.lineTo(tx-4,ty);ctx.closePath();ctx.fill();ctx.save();ctx.translate(56,46);ctx.rotate(state.heading*Math.PI/180);ctx.fillStyle='#fff';ctx.beginPath();ctx.moveTo(0,-6);ctx.lineTo(4,4);ctx.lineTo(0,2);ctx.lineTo(-4,4);ctx.closePath();ctx.fill();ctx.restore();ctx.fillStyle='white';ctx.font='9px Arial';ctx.fillText('N',53,10);});
+document.querySelectorAll('[data-zone]').forEach(b=>b.onclick=()=>{unityInstance.SendMessage('Drone Front',b.dataset.zone);canvas.focus();});
+document.querySelectorAll('[data-command]').forEach(b=>b.onclick=()=>{unityInstance.SendMessage('Drone Front','FlightCommand',b.dataset.command);canvas.focus();});
+document.querySelectorAll('[data-hold]').forEach(b=>{b.onpointerdown=e=>{e.preventDefault();b.setPointerCapture(e.pointerId);b.classList.add('active');unityInstance.SendMessage('Drone Front','HoldControl',b.dataset.hold);};const release=()=>{b.classList.remove('active');unityInstance.SendMessage('Drone Front','ReleaseControl',b.dataset.hold);};b.onpointerup=release;b.onpointercancel=release;b.onlostpointercapture=release;});
+const releaseAll=()=>{document.querySelectorAll('[data-hold]').forEach(b=>b.classList.remove('active'));unityInstance.SendMessage('Drone Front','ReleaseControls');};window.addEventListener('blur',releaseAll);document.addEventListener('visibilitychange',()=>{if(document.hidden)releaseAll();});
+
+                document.querySelector("#unity-fullscreen-button").onclick = () => {
+                  unityInstance.SetFullscreen(1);
+                };
+
+                var profile = unityProfiler.createButton(unityInstance);
+                profile.style.marginLeft = '5px';
+                document.querySelector("#unity-build-title").appendChild(profile);
+
+                // Unloading web content from DOM so that browser GC can run can be tricky to get right.
+                // This code snippet shows how to correctly implement a Unity content Unload mechanism to a web page.
+
+                // Unloading Unity content enables a web page to reclaim the memory used by Unity, e.g. for
+                // the purpose of later loading another Unity content instance on the _same_ web page.
+
+                // When using this functionality, take caution to carefully make sure to clear all JavaScript code,
+                // DOM element and event handler references to the old content you may have retained, or
+                // otherwise the browser's garbage collector will be unable to reclaim the old page.
+
+                // N.b. Unity content does _not_ need to be manually unloaded when the user is navigating away from
+                // the current page to another web page. The browser will take care to clear memory of old visited
+                // pages automatically. This functionality is only needed if you want to switch between loading
+                // multiple Unity builds on a single web page.
+                var quit = document.createElement("button");
+                quit.style = "margin-left: 5px; background-color: lightgray; border: none; padding: 5px; cursor: pointer";
+                quit.innerHTML = "Unload";
+                document.querySelector("#unity-build-title").appendChild(quit);
+                quit.onclick = () => {
+                  // Quit Unity application execution
+                  unityInstance.Quit().then(() => {
+                    unityProfiler.shutDown();
+                    // Remove DOM elements from the page so GC can run
+                    document.querySelector("#unity-container").remove();
+                    canvas = null;
+                    fullscreenContainer = null;
+                    // Remover script elements from the page so GC can run
+                    script.remove();
+                    script = null;
+                  });
+                };
+              }).catch((message) => {
+                alert(message);
+              });
+            };
+
+      document.body.appendChild(script);
+
+    </script>
+  <section id="pilot" aria-label="ريموت الدرون"><div class="stick-group"><h3>الاتجاهات — أمام / خلف / جانبي</h3><div id="move-stick" class="joystick" role="group" tabindex="0" aria-label="جير التحكم بالاتجاهات" data-stick="SetMoveStick"><span class="top">أمام</span><span class="bottom">خلف</span><span class="left">يسار</span><span class="right">يمين</span><div class="knob"></div></div><output class="stick-value">0.00 / 0.00</output></div><div class="stick-group"><h3>الارتفاع والالتفاف</h3><div id="lift-stick" class="joystick" role="group" tabindex="0" aria-label="جير التحكم بالصعود والهبوط والالتفاف" data-stick="SetLiftStick"><span class="top">صعود</span><span class="bottom">نزول</span><span class="left">لف يسار</span><span class="right">لف يمين</span><div class="knob"></div></div><output class="stick-value">0.00 / 0.00</output></div><div class="actions"><button data-command="takeoff" disabled>إقلاع</button><button data-command="land" disabled>هبوط آلي</button><button data-command="hover" disabled>تثبيت</button><button data-hold="fire" disabled>إطلاق</button><button data-command="gear1" disabled>سرعة 1</button><button data-command="gear2" disabled>سرعة 2</button><button data-command="gear3" disabled>سرعة 3</button><button data-command="gear" disabled>قواعد الهبوط</button></div><small>اسحب الجيرين باللمس أو الماوس • مقدار السحب يحدد القوة • اتركهما للتثبيت</small></section></body>
+</html>

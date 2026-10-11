@@ -1,0 +1,1 @@
+{"name":"drone-front-rooms","version":"0.1.0","private":true,"scripts":{"start":"node server.cjs","test":"node test-server.cjs"},"dependencies":{"ws":"^8.18.0"}}
